@@ -1,23 +1,70 @@
-[gd_scene load_steps=2 format=3 uid="uid://civw06hbqtjuc"]
+[gd_scene load_steps=6 format=3 uid="uid://civw06hbqtjuc"]
+
+[ext_resource type="Texture2D" uid="uid://4l00bj7k7en6" path="res://icon.svg" id="1_324bu"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jccya"]
+friction = 0.01
+bounce = 1.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vvkbq"]
-friction = 0.05
-bounce = 0.5
+friction = 0.0
+bounce = 10.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b8iej"]
+radius = 10.1152
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8bpin"]
+radius = 100.0
 
 [node name="Game" type="Node2D"]
 
 [node name="Walls" type="StaticBody2D" parent="."]
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls"]
+position = Vector2(0, -1)
+polygon = PackedVector2Array(-128, 1, -128, -127, 1280, -127, 1280, 769, -128, 769, -128, 1, 0, 1, 0, 649, 1152, 649, 1152, 1)
+
 [node name="Object1" type="RigidBody2D" parent="."]
+position = Vector2(100, 100)
+physics_material_override = SubResource("PhysicsMaterial_jccya")
 metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Object1"]
+texture = ExtResource("1_324bu")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Object1"]
+polygon = PackedVector2Array(64, -59.6, 64, 59, 59.6, 64, -59, 64, -64, 59.6, -64, -59.6, -59, -63.9, 59, -64)
 
 [node name="Object2" type="RigidBody2D" parent="."]
+position = Vector2(600, 200)
 physics_material_override = SubResource("PhysicsMaterial_vvkbq")
+linear_velocity = Vector2(100, 200)
+angular_velocity = 0.0872665
 metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Object2"]
+texture = ExtResource("1_324bu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Object2"]
+scale = Vector2(4.94408, 4.86646)
+shape = SubResource("CircleShape2D_b8iej")
 
 [node name="Object3" type="StaticBody2D" parent="."]
+position = Vector2(700, 500)
+rotation = 0.785398
 metadata/_edit_group_ = true
 
+[node name="Sprite2D" type="Sprite2D" parent="Object3"]
+texture = ExtResource("1_324bu")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Object3"]
+polygon = PackedVector2Array(0, 44, 9, 44, 22, 42, 34, 37, 41, 28, 41, 15, 41, -9, 47, -17, 39, -28, 30, -23, 21, -30, 22, -40, 10, -44, 5, -35, -5, -35, -9, -44, -22, -39, -21, -29, -30, -23, -38, -28, -47, -17, -41, -9, -41, 27, -38, 33, -31, 38, -22, 42, -11, 44)
+
 [node name="Gravity" type="Area2D" parent="."]
-gravity = 100.0
+position = Vector2(150, 300)
+gravity_space_override = 3
+gravity = -100.0
 linear_damp = 0.6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gravity"]
+shape = SubResource("CircleShape2D_8bpin")
